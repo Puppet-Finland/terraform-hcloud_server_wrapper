@@ -7,8 +7,15 @@ variable "hostname" {
   type = string
 }
 
+# Whether to install Puppet Agent or not.
+variable "install_puppet_agent" {
+  type    = bool
+  default = true
+}
+
 variable "puppetmaster_ip" {
   type = string
+  default = ""
 }
 
 variable "ssh_keys" {

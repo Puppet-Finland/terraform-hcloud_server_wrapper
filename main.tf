@@ -45,17 +45,9 @@ resource "hcloud_server" "hcloud_server_instance" {
   }
 
   # Taken from aws_instance_wrapper
-  provisioner "remote-exec" {
-    inline = [ "echo ${var.puppetmaster_ip} puppet|sudo tee -a /etc/hosts" ]
-  }
-
   provisioner "file" {
     source = "${path.module}/install-puppet.sh"
     destination = "/tmp/install-puppet.sh"
-  }
-
-  provisioner "remote-exec" {
-    inline = [ "sudo mkdir -p /etc/puppetlabs/facter/facts.d" ]
   }
 
   provisioner "file" {
@@ -64,9 +56,14 @@ resource "hcloud_server" "hcloud_server_instance" {
   }
 
   provisioner "remote-exec" {
-    inline = [ "sudo mv /tmp/deployment.yaml /etc/puppetlabs/facter/facts.d/",
-               "sudo chown -R root:root /etc/puppetlabs/facter",
-               "chmod +x /tmp/install-puppet.sh",
-               "sudo /tmp/install-puppet.sh -n ${var.hostname} -e ${var.deployment} -s" ]
+    inline = concat(["echo Provisioning"], [for command in local.deployment_fact_commands: command if var.deployment != ""])
+   }
+
+  provisioner "remote-exec" {
+    inline = concat(["echo Provisioning"], [local.set_hostname_command], [local.etc_hosts_command], [for command in local.puppet_agent_commands: command if var.install_puppet_agent])
+  }
+
+  provisioner "remote-exec" {
+    inline = ["rm -f /tmp/install-puppet.sh /tmp/deployment.yaml"]
   }
 }
