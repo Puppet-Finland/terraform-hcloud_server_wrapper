@@ -13,6 +13,16 @@ variable "install_puppet_agent" {
   default = true
 }
 
+variable "puppet_environment" {
+  type = string
+  default = ""
+}
+
+variable "puppet_version" {
+  type = number
+  default = 7
+}
+
 variable "puppetmaster_ip" {
   type = string
   default = ""
