@@ -31,6 +31,7 @@ resource "hcloud_server" "hcloud_server_instance" {
   backups      = var.backups
   firewall_ids = var.firewall_ids
   user_data    = data.cloudinit_config.provision.rendered
+  labels       = var.labels
 
   lifecycle {
     ignore_changes = [

@@ -72,3 +72,8 @@ variable "datacenter" {
   type = string
   default = "hel1-dc2"
 }
+
+variable "labels" {
+  type = map
+  default = {}
+}
