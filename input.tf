@@ -60,7 +60,6 @@ variable "deployment" {
 
 variable "image" {
   type = string
-  default = "centos-7"
 }
 
 variable "server_type" {
