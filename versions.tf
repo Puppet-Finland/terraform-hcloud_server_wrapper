@@ -5,7 +5,7 @@ terraform {
     }
     hcloud = {
       source = "hetznercloud/hcloud"
+      version = ">= 1.42.1"
     }
   }
-  required_version = ">= 1.42.1"
 }
