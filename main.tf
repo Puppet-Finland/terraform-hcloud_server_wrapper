@@ -26,7 +26,7 @@ resource "hcloud_server" "hcloud_server_instance" {
   name         = var.hostname
   image        = var.image
   server_type  = var.server_type
-  datacenter   = var.datacenter
+  location     = var.location
   ssh_keys     = var.ssh_keys
   backups      = var.backups
   firewall_ids = var.firewall_ids

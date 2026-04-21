@@ -67,9 +67,9 @@ variable "server_type" {
   default = "cx11"
 }
 
-variable "datacenter" {
+variable "location" {
   type = string
-  default = "hel1-dc2"
+  default = "hel1"
 }
 
 variable "labels" {
